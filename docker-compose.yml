@@ -1,0 +1,30 @@
+services:
+  app:
+    build: ./backend
+    ports:
+      - 3000:3000            # O primeiro 3000 é a porta que tá "dentro" (a porta interna), o segundo é a porta do Servidor
+    depends_on:               # "Para que esse serviço funcione, eu preciso estar com o serviço db esteja online"
+      - db
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    networks:
+      - app-network
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}         #Traços e espaços ("- ") indicam listas
+      - POSTGRES_PASSWORD= ${POSTGRES_PASSWORD} # ${nome} indicam variáveis de ambiente
+      - POSTGRES_DB= ${POSTGRES_DB}
+    volumes:           #Diretório da máquina hosperadora 
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+#Configuração da rede
+networks:
+  app-network: #Esse nome aqui pode ser alterado (Ex.: substituir o "app-network" por "abacaxi")
+    driver: bridge
+
+volumes:
+  db-data:
