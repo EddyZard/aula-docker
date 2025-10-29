@@ -1,0 +1,10 @@
+# Configurações do banco de dados
+POSTGRES_USER=user
+POSTGRES_PASSWORD=secret
+POSTGRES_DB=appdb
+
+# URL do banco de dados
+DATABASE_URL=postgres://user:secret@db:5432/appdb
+                    #://usuário:senha_do_usuário@máquina_que_vai_ser_acessada:porta/banco_de_dados_acessado
+
+#ARQUIVOS .env GERALMENTE NÃO SÃO ENVIADOS NO GITHUB 
